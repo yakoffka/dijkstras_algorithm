@@ -1,0 +1,16 @@
+{
+  "name": "yakoffka/dijkstras_algorithm",
+  "description": "Работа со структурами данных на PHP. Алгоритм Дейкстры. https://www.youtube.com/watch?v=L2w-LW2j2gY",
+  "autoload": {
+    "psr-4": {
+      "Yakoffka\\DijkstrasAlgorithm\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "yakoffKa",
+      "email": "yagithub@mail.ru"
+    }
+  ],
+  "require": {}
+}
