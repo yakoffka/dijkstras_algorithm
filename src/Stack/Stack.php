@@ -8,7 +8,7 @@ namespace Yakoffka\DijkstrasAlgorithm\Stack;
  */
 class Stack
 {
-    private ?QueueNode $lastNode = null;
+    private ?StackNode $lastNode = null;
 
     /**
      * Добавление элемента в стек (в конец массива)
@@ -18,7 +18,7 @@ class Stack
     public function push(string $payload): void
     {
         echo PHP_EOL . "push $payload" . PHP_EOL;
-        $this->lastNode = new QueueNode($payload, $this->lastNode);
+        $this->lastNode = new StackNode($payload, $this->lastNode);
     }
 
     /**

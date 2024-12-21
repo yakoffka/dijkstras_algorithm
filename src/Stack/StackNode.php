@@ -10,7 +10,7 @@ readonly class StackNode
 {
     /**
      * @param string $payload полезная нагрузка узла
-     * @param QueueNode|null $prev ссылка на предыдущий узел
+     * @param StackNode|null $prev ссылка на предыдущий узел
      */
     public function __construct(private string $payload, private ?self $prev)
     {
@@ -25,9 +25,9 @@ readonly class StackNode
     }
 
     /**
-     * @return QueueNode|null
+     * @return StackNode|null
      */
-    public function getPrev(): ?QueueNode
+    public function getPrev(): ?StackNode
     {
         return $this->prev;
     }

@@ -3,7 +3,7 @@
         'name' => 'yakoffka/dijkstras_algorithm',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'dde35e25ca8e4a4ed1d201dfae4c22deee822855',
+        'reference' => '72d32884796ed15a161cae19bf21c6e86e4a1858',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'yakoffka/dijkstras_algorithm' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'dde35e25ca8e4a4ed1d201dfae4c22deee822855',
+            'reference' => '72d32884796ed15a161cae19bf21c6e86e4a1858',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
