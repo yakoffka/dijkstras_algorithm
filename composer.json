@@ -6,11 +6,23 @@
       "Yakoffka\\DijkstrasAlgorithm\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Yakoffka\\DijkstrasAlgorithm\\Tests\\": "tests/"
+    }
+  },
   "authors": [
     {
       "name": "yakoffKa",
       "email": "yagithub@mail.ru"
     }
   ],
-  "require": {}
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpunit"
+    ]
+  }
 }
