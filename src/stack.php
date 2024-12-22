@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
-require 'vendor/autoload.php';
 
 use Yakoffka\DijkstrasAlgorithm\Stack\Stack;
+
+require 'vendor/autoload.php';
 
 $stack = new Stack();
 $stack->show();
