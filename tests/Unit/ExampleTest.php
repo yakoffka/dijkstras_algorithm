@@ -6,7 +6,7 @@ namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- *
+ * example test
  */
 class ExampleTest extends TestCase
 {

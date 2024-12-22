@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\Stack;
 
+use Countable;
+
 /**
  * Стек (на основе односвязного списка) LIFO.
  * У Стека есть доступ только к последнему элементу.
  */
-class Stack
+class Stack implements Countable
 {
     private ?StackNode $lastNode = null;
 
@@ -18,7 +20,6 @@ class Stack
      */
     public function push(string $payload): void
     {
-        echo PHP_EOL . "push $payload" . PHP_EOL;
         $this->lastNode = new StackNode($payload, $this->lastNode);
     }
 
@@ -29,7 +30,6 @@ class Stack
      */
     public function peek(): ?string
     {
-        echo PHP_EOL . 'peek ' . ($this->lastNode?->getPayload() ?? 'null') . PHP_EOL;
         return $this->lastNode?->getPayload();
     }
 
@@ -42,7 +42,6 @@ class Stack
     {
         $result = $this->lastNode?->getPayload();
 
-        echo PHP_EOL . 'pop ' . ($result ?? 'null') . PHP_EOL;
         $this->lastNode = $this->lastNode?->getPrev();
 
         return $result;
@@ -66,5 +65,21 @@ class Stack
         echo empty($result)
             ? 'stack is empty' . PHP_EOL
             : implode(' -> ', $result) . PHP_EOL;
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        $count = 0;
+
+        $node = $this->lastNode;
+        while ($node !== null) {
+            $count ++;
+            $node = $node->getPrev();
+        }
+
+        return $count;
     }
 }

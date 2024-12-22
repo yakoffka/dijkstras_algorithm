@@ -9,12 +9,12 @@ use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
 /**
  * Узел односвязной очереди
  */
-class QueueNode extends DoubleNode implements JsonSerializable
+class DQueueNode extends DoubleNode implements JsonSerializable
 {
     /**
      * @param string $payload полезная нагрузка узла
-     * @param QueueNode|null $prev ссылка на предыдущий узел
-     * @param QueueNode|null $next ссылка на следующий узел
+     * @param DQueueNode|null $prev ссылка на предыдущий узел
+     * @param DQueueNode|null $next ссылка на следующий узел
      */
     public function __construct(readonly private string $payload, private ?self $prev, private ?self $next = null)
     {

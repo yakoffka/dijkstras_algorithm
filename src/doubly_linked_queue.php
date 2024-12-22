@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-use Yakoffka\DijkstrasAlgorithm\DoublyLinkedRealQueue\Queue;
+use Yakoffka\DijkstrasAlgorithm\DoublyLinkedRealQueue\DQueue;
 
 require 'vendor/autoload.php';
 
-$queue = new Queue();
+$queue = new DQueue();
 $queue->show();
 
 $queue->push('first');

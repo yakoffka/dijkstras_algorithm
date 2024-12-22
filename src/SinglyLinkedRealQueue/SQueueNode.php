@@ -8,11 +8,11 @@ use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
 /**
  * Узел односвязной очереди
  */
-class QueueNode extends DoubleNode
+class SQueueNode extends DoubleNode
 {
     /**
      * @param string $payload полезная нагрузка узла
-     * @param QueueNode|null $prev ссылка на предыдущий узел
+     * @param SQueueNode|null $prev ссылка на предыдущий узел
      */
     public function __construct(readonly private string $payload, private ?self $prev)
     {

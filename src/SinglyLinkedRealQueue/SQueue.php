@@ -3,14 +3,16 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue;
 
+use Countable;
+
 /**
  * Очередь (на основе односвязного списка) FIFO.
  * У очереди есть доступ и к первому и к последнему элементу.
  */
-class Queue
+class SQueue implements Countable
 {
-    private ?QueueNode $firstNode = null;
-    private ?QueueNode $lastNode = null;
+    private ?SQueueNode $firstNode = null;
+    private ?SQueueNode $lastNode = null;
 
     /**
      * Добавление элемента в очередь (в конец)
@@ -22,9 +24,7 @@ class Queue
      */
     public function push(string $payload): void
     {
-        echo PHP_EOL . "push $payload" . PHP_EOL;
-
-        $this->lastNode = new QueueNode(payload: $payload, prev: $this->lastNode);
+        $this->lastNode = new SQueueNode(payload: $payload, prev: $this->lastNode);
 
         $this->firstNode ??= $this->lastNode;
     }
@@ -36,10 +36,7 @@ class Queue
      */
     public function peekFirst(): ?string
     {
-        $firstPayload = $this->firstNode?->getPayload();
-        echo PHP_EOL . 'peek first ' . ($firstPayload ?? 'null') . PHP_EOL;
-
-        return $firstPayload;
+        return $this->firstNode?->getPayload();
     }
 
     /**
@@ -49,10 +46,7 @@ class Queue
      */
     public function peekLast(): ?string
     {
-        $lastPayload = $this->lastNode?->getPayload();
-        echo PHP_EOL . 'peek last ' . ($lastPayload ?? 'null') . PHP_EOL;
-
-        return $lastPayload;
+        return $this->lastNode?->getPayload();
     }
 
     /**
@@ -64,7 +58,6 @@ class Queue
     {
         $firstNode = $this->firstNode;
         $result = $firstNode?->getPayload();
-        echo PHP_EOL . 'shift ' . ($result ?? 'null') . PHP_EOL;
 
         if ($this->lastNode === $firstNode) {
             $this->lastNode = null;
@@ -102,10 +95,10 @@ class Queue
     /**
      * Динамическое получение следующего элемента очереди (в узле есть ссылка только на предыдущий)
      *
-     * @param QueueNode $current
-     * @return QueueNode|null
+     * @param SQueueNode $current
+     * @return SQueueNode|null
      */
-    private function getNext(QueueNode $current): ?QueueNode
+    private function getNext(SQueueNode $current): ?SQueueNode
     {
         $node = $this->lastNode;
 
@@ -114,5 +107,21 @@ class Queue
         }
 
         return $node;
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        $count = 0;
+
+        $node = $this->lastNode;
+        while ($node !== null) {
+            $count ++;
+            $node = $node->getPrev();
+        }
+
+        return $count;
     }
 }

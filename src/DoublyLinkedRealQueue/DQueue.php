@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\DoublyLinkedRealQueue;
 
+use Countable;
 use JsonSerializable;
 
 /**
  * Очередь (на основе двусвязного списка) FIFO.
  * У очереди есть доступ и к первому и к последнему элементу.
  */
-class Queue implements JsonSerializable
+class DQueue implements JsonSerializable, Countable
 {
-    private ?QueueNode $firstNode = null;
-    private ?QueueNode $lastNode = null;
+    private ?DQueueNode $firstNode = null;
+    private ?DQueueNode $lastNode = null;
 
     /**
      * Добавление элемента в очередь (в конец)
@@ -24,9 +25,7 @@ class Queue implements JsonSerializable
      */
     public function push(string $payload): void
     {
-        echo PHP_EOL . "push $payload" . PHP_EOL;
-
-        $node = new QueueNode(payload: $payload, prev: $this->lastNode);
+        $node = new DQueueNode(payload: $payload, prev: $this->lastNode);
         $this->lastNode?->setNext($node);
         $this->lastNode = $node;
 
@@ -40,10 +39,7 @@ class Queue implements JsonSerializable
      */
     public function peekFirst(): ?string
     {
-        $firstPayload = $this->firstNode?->getPayload();
-        echo PHP_EOL . 'peek first ' . ($firstPayload ?? 'null') . PHP_EOL;
-
-        return $firstPayload;
+        return $this->firstNode?->getPayload();
     }
 
     /**
@@ -53,10 +49,7 @@ class Queue implements JsonSerializable
      */
     public function peekLast(): ?string
     {
-        $lastPayload = $this->lastNode?->getPayload();
-        echo PHP_EOL . 'peek last ' . ($lastPayload ?? 'null') . PHP_EOL;
-
-        return $lastPayload;
+        return $this->lastNode?->getPayload();
     }
 
     /**
@@ -66,9 +59,6 @@ class Queue implements JsonSerializable
      */
     public function shift(): ?string
     {
-//        var_dump($this->firstNode->getNext()->getPayload());
-//        die();
-
         $node = $this->firstNode;
         if ($this->lastNode === $this->firstNode) {
             $this->lastNode = null;
@@ -76,13 +66,9 @@ class Queue implements JsonSerializable
         }
 
         $result = $node?->getPayload();
-        echo PHP_EOL . 'shift ' . ($result ?? 'null') . PHP_EOL;
 
-        // echo __LINE__ . ': ' . json_encode($this->firstNode, JSON_THROW_ON_ERROR) . PHP_EOL;
         $this->firstNode = $node?->getNext();
-        // echo __LINE__ . ': ' . json_encode($this->firstNode, JSON_THROW_ON_ERROR) . PHP_EOL;
         $this->firstNode?->setPrev(null);
-        // echo __LINE__ . ': ' . json_encode($this->firstNode, JSON_THROW_ON_ERROR) . PHP_EOL;
 
         return $result;
     }
@@ -121,6 +107,22 @@ class Queue implements JsonSerializable
             $node = $node->getPrev();
         }
 
-        return array_map(fn(QueueNode $node) => $node->jsonSerialize(), $result ?? []);
+        return array_map(fn(DQueueNode $node) => $node->jsonSerialize(), $result ?? []);
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        $count = 0;
+
+        $node = $this->lastNode;
+        while ($node !== null) {
+            $count ++;
+            $node = $node->getPrev();
+        }
+
+        return $count;
     }
 }
