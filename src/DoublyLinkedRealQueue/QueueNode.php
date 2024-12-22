@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace Yakoffka\DijkstrasAlgorithm\DoublyLinkedRealQueue;
 
 use JsonSerializable;
+use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
 
 /**
- * Узел односвязной очереди. Должен уметь ответить на вопрос: а Вы за кем?
+ * Узел односвязной очереди
  */
-class QueueNode implements JsonSerializable
+class QueueNode extends DoubleNode implements JsonSerializable
 {
     /**
      * @param string $payload полезная нагрузка узла
@@ -17,48 +18,7 @@ class QueueNode implements JsonSerializable
      */
     public function __construct(readonly private string $payload, private ?self $prev, private ?self $next = null)
     {
-    }
-
-    /**
-     * @return string
-     */
-    public function getPayload(): string
-    {
-        return $this->payload;
-    }
-
-    /**
-     * @return QueueNode|null
-     */
-    public function getPrev(): ?QueueNode
-    {
-        return $this->prev;
-    }
-
-    /**
-     * @param QueueNode|null $prev
-     * @return void
-     */
-    public function setPrev(?QueueNode $prev): void
-    {
-        $this->prev = $prev;
-    }
-
-    /**
-     * @return QueueNode|null
-     */
-    public function getNext(): ?QueueNode
-    {
-        return $this->next;
-    }
-
-    /**
-     * @param QueueNode|null $next
-     * @return void
-     */
-    public function setNext(?QueueNode $next): void
-    {
-        $this->next = $next;
+        parent::__construct(payload: $this->payload, prev: $this->prev, next: $this->next);
     }
 
     /**

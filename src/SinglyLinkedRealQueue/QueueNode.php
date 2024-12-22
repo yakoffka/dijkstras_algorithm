@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue;
 
+use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
+
 /**
- * Узел односвязной очереди. Должен уметь ответить на вопрос: а Вы за кем?
+ * Узел односвязной очереди
  */
-class QueueNode
+class QueueNode extends DoubleNode
 {
     /**
      * @param string $payload полезная нагрузка узла
@@ -14,22 +16,7 @@ class QueueNode
      */
     public function __construct(readonly private string $payload, private ?self $prev)
     {
-    }
-
-    /**
-     * @return string
-     */
-    public function getPayload(): string
-    {
-        return $this->payload;
-    }
-
-    /**
-     * @return QueueNode|null
-     */
-    public function getPrev(): ?QueueNode
-    {
-        return $this->prev;
+        parent::__construct(payload: $this->payload, prev: $this->prev);
     }
 
     /**
