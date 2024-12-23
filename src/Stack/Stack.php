@@ -11,7 +11,7 @@ use Countable;
  */
 class Stack implements Countable
 {
-    private ?StackNode $lastNode = null;
+    private ?StackNode $last = null;
 
     /**
      * Добавление элемента в стек (в конец)
@@ -20,7 +20,7 @@ class Stack implements Countable
      */
     public function push(string $payload): void
     {
-        $this->lastNode = new StackNode($payload, $this->lastNode);
+        $this->last = new StackNode($payload, $this->last);
     }
 
     /**
@@ -30,7 +30,7 @@ class Stack implements Countable
      */
     public function peek(): ?string
     {
-        return $this->lastNode?->getPayload();
+        return $this->last?->getPayload();
     }
 
     /**
@@ -40,9 +40,9 @@ class Stack implements Countable
      */
     public function pop(): ?string
     {
-        $result = $this->lastNode?->getPayload();
+        $result = $this->last?->getPayload();
 
-        $this->lastNode = $this->lastNode?->getPrev();
+        $this->last = $this->last?->getPrev();
 
         return $result;
     }
@@ -55,7 +55,7 @@ class Stack implements Countable
     public function show(): void
     {
         $result = [];
-        $node = $this->lastNode;
+        $node = $this->last;
 
         while ($node !== null) {
             $result[] = $node->getPayload();
@@ -74,7 +74,7 @@ class Stack implements Countable
     {
         $count = 0;
 
-        $node = $this->lastNode;
+        $node = $this->last;
         while ($node !== null) {
             $count ++;
             $node = $node->getPrev();

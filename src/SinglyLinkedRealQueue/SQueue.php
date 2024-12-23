@@ -11,8 +11,8 @@ use Countable;
  */
 class SQueue implements Countable
 {
-    private ?SQueueNode $firstNode = null;
-    private ?SQueueNode $lastNode = null;
+    private ?SQueueNode $first = null;
+    private ?SQueueNode $last = null;
 
     /**
      * Добавление элемента в очередь (в конец)
@@ -24,9 +24,9 @@ class SQueue implements Countable
      */
     public function push(string $payload): void
     {
-        $this->lastNode = new SQueueNode(payload: $payload, prev: $this->lastNode);
+        $this->last = new SQueueNode(payload: $payload, prev: $this->last);
 
-        $this->firstNode ??= $this->lastNode;
+        $this->first ??= $this->last;
     }
 
     /**
@@ -36,7 +36,7 @@ class SQueue implements Countable
      */
     public function peekFirst(): ?string
     {
-        return $this->firstNode?->getPayload();
+        return $this->first?->getPayload();
     }
 
     /**
@@ -46,7 +46,7 @@ class SQueue implements Countable
      */
     public function peekLast(): ?string
     {
-        return $this->lastNode?->getPayload();
+        return $this->last?->getPayload();
     }
 
     /**
@@ -56,18 +56,17 @@ class SQueue implements Countable
      */
     public function shift(): ?string
     {
-        $firstNode = $this->firstNode;
-        $result = $firstNode?->getPayload();
+        $node = $this->first;
 
-        if ($this->lastNode === $firstNode) {
-            $this->lastNode = null;
+        if ($this->last === $node) {
+            $this->last = null;
 
         } else {
-            $this->firstNode = $this->getNext($firstNode);
-            $this->firstNode?->unsetPrev();
+            $this->first = $this->getNext($node);
+            $this->first?->unsetPrev();
         }
 
-        return $result;
+        return $node?->getPayload();
     }
 
     /**
@@ -78,7 +77,7 @@ class SQueue implements Countable
     public function show(): void
     {
         $result = [];
-        $node = $this->lastNode;
+        $node = $this->last;
 
         while ($node !== null) {
             $result[] = $node->getPayload();
@@ -87,9 +86,9 @@ class SQueue implements Countable
 
         echo empty($result)
             ? 'queue is empty' . PHP_EOL
-            : "{$this->lastNode->getPayload()}|"
+            : "{$this->last->getPayload()}|"
             . implode(' -> ', $result)
-            . "|{$this->firstNode->getPayload()}" . PHP_EOL;
+            . "|{$this->first->getPayload()}" . PHP_EOL;
     }
 
     /**
@@ -100,7 +99,7 @@ class SQueue implements Countable
      */
     private function getNext(SQueueNode $current): ?SQueueNode
     {
-        $node = $this->lastNode;
+        $node = $this->last;
 
         while ($node !== null && $node->getPrev() !== $current) {
             $node = $node->getPrev();
@@ -116,7 +115,7 @@ class SQueue implements Countable
     {
         $count = 0;
 
-        $node = $this->lastNode;
+        $node = $this->last;
         while ($node !== null) {
             $count ++;
             $node = $node->getPrev();

@@ -12,8 +12,8 @@ use JsonSerializable;
  */
 class DQueue implements JsonSerializable, Countable
 {
-    private ?DQueueNode $firstNode = null;
-    private ?DQueueNode $lastNode = null;
+    private ?DQueueNode $first = null;
+    private ?DQueueNode $last = null;
 
     /**
      * Добавление элемента в очередь (в конец)
@@ -25,11 +25,11 @@ class DQueue implements JsonSerializable, Countable
      */
     public function push(string $payload): void
     {
-        $node = new DQueueNode(payload: $payload, prev: $this->lastNode);
-        $this->lastNode?->setNext($node);
-        $this->lastNode = $node;
+        $node = new DQueueNode(payload: $payload, prev: $this->last);
+        $this->last?->setNext($node);
+        $this->last = $node;
 
-        $this->firstNode ??= $this->lastNode;
+        $this->first ??= $this->last;
     }
 
     /**
@@ -39,7 +39,7 @@ class DQueue implements JsonSerializable, Countable
      */
     public function peekFirst(): ?string
     {
-        return $this->firstNode?->getPayload();
+        return $this->first?->getPayload();
     }
 
     /**
@@ -49,7 +49,7 @@ class DQueue implements JsonSerializable, Countable
      */
     public function peekLast(): ?string
     {
-        return $this->lastNode?->getPayload();
+        return $this->last?->getPayload();
     }
 
     /**
@@ -59,16 +59,16 @@ class DQueue implements JsonSerializable, Countable
      */
     public function shift(): ?string
     {
-        $node = $this->firstNode;
-        if ($this->lastNode === $this->firstNode) {
-            $this->lastNode = null;
-            $this->firstNode = null;
+        $node = $this->first;
+        if ($this->last === $this->first) {
+            $this->last = null;
+            $this->first = null;
         }
 
         $result = $node?->getPayload();
 
-        $this->firstNode = $node?->getNext();
-        $this->firstNode?->setPrev(null);
+        $this->first = $node?->getNext();
+        $this->first?->setPrev(null);
 
         return $result;
     }
@@ -81,7 +81,7 @@ class DQueue implements JsonSerializable, Countable
     public function show(): void
     {
         $result = [];
-        $node = $this->lastNode;
+        $node = $this->last;
 
         while ($node !== null) {
             $result[] = $node->getPayload();
@@ -90,9 +90,9 @@ class DQueue implements JsonSerializable, Countable
 
         echo empty($result)
             ? 'queue is empty' . PHP_EOL
-            : "{$this->lastNode?->getPayload()}|"
+            : "{$this->last?->getPayload()}|"
             . implode(' -> ', $result)
-            . "|{$this->firstNode?->getPayload()}" . PHP_EOL;
+            . "|{$this->first?->getPayload()}" . PHP_EOL;
     }
 
     /**
@@ -100,7 +100,7 @@ class DQueue implements JsonSerializable, Countable
      */
     public function jsonSerialize(): array
     {
-        $node = $this->lastNode;
+        $node = $this->last;
 
         while ($node !== null) {
             $result[] = $node;
@@ -117,7 +117,7 @@ class DQueue implements JsonSerializable, Countable
     {
         $count = 0;
 
-        $node = $this->lastNode;
+        $node = $this->last;
         while ($node !== null) {
             $count ++;
             $node = $node->getPrev();
