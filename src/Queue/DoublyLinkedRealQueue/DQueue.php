@@ -101,25 +101,21 @@ class DQueue implements JsonSerializable, Countable
     }
 
     /**
-     * Отображение содержимого очереди: от последнего к первому
+     * Отображение содержимого очереди в строковом представлении: от последнего к первому ('n -> n-1 -> ... -> 2 -> 1')
      *
-     * @return void
+     * @return string
      */
-    public function show(): void
+    public function show(): string
     {
         $result = [];
-        $node = $this->last;
+        $current = $this->last;
 
-        while ($node !== null) {
-            $result[] = $node->getPayload();
-            $node = $node->getPrev();
+        while ($current !== null) {
+            $result[] = $current->getPayload();
+            $current = $current->getPrev();
         }
 
-        echo empty($result)
-            ? 'queue is empty' . PHP_EOL
-            : "{$this->last?->getPayload()}|"
-            . implode(' -> ', $result)
-            . "|{$this->first?->getPayload()}" . PHP_EOL;
+        return implode(' -> ', $result);
     }
 
     /**
