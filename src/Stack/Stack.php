@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace Yakoffka\DijkstrasAlgorithm\Stack;
 
 use Countable;
+use JsonSerializable;
 use Yakoffka\DijkstrasAlgorithm\Primitives\SingleNode;
 
 /**
  * Стек (на основе односвязного списка) LIFO.
  * У Стека есть доступ только к последнему элементу.
  */
-class Stack implements Countable
+class Stack implements JsonSerializable, Countable
 {
     private ?SingleNode $last = null;
 
@@ -49,24 +50,6 @@ class Stack implements Countable
     }
 
     /**
-     * Получение строкового представления стека: от последнего (верхнего) к первому (нижнему) элементу
-     *
-     * @return string
-     */
-    public function show(): string
-    {
-        $result = [];
-        $node = $this->last;
-
-        while ($node !== null) {
-            $result[] = $node->getPayload();
-            $node = $node->getLink();
-        }
-
-        return implode(' -> ', $result);
-    }
-
-    /**
      * Проверка на пустоту: возвращает true, если стек пуст, и false в противном случае
      *
      * @return bool
@@ -90,5 +73,38 @@ class Stack implements Countable
         }
 
         return $count;
+    }
+
+    /**
+     * Получение строкового представления стека: от последнего (верхнего) к первому (нижнему) элементу
+     *
+     * @return string
+     */
+    public function show(): string
+    {
+        $result = [];
+        $node = $this->last;
+
+        while ($node !== null) {
+            $result[] = $node->getPayload();
+            $node = $node->getLink();
+        }
+
+        return implode(' -> ', $result);
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        $node = $this->last;
+
+        while ($node !== null) {
+            $result[] = $node;
+            $node = $node->getLink();
+        }
+
+        return array_map(static fn(SingleNode $node) => $node->jsonSerialize(), $result ?? []);
     }
 }

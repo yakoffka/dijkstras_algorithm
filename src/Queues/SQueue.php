@@ -5,7 +5,6 @@ namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
 use Countable;
 use JsonSerializable;
-use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
 use Yakoffka\DijkstrasAlgorithm\Primitives\SingleNode;
 
 /**
@@ -126,10 +125,10 @@ class SQueue implements JsonSerializable, Countable
 
         while ($node !== null) {
             $result[] = $node;
-            $node = $node->getPrev();
+            $node = $node->getLink();
         }
 
-        return array_map(static fn(DoubleNode $node) => $node->jsonSerialize(), $result ?? []);
+        return array_map(static fn(SingleNode $node) => $node->jsonSerialize(), $result ?? []);
     }
 
     /**
