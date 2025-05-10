@@ -85,11 +85,11 @@ class StackJsonTest extends TestCase
     }
 
     /**
-     * Проверка метода jsonSerialize на стеке, содержащем несколько (5) элементов после удаления двух элементов
+     * Проверка метода jsonSerialize на стеке после частичного удаления элементов
      *
      * @return void
      */
-    #[Test] public function stackJsonOn3Nodes(): void
+    #[Test] public function stackJsonOnPartPop(): void
     {
         $stack = new Stack();
         foreach (range(1, 5) as $i) {
@@ -114,5 +114,25 @@ class StackJsonTest extends TestCase
                 'link' => null,
             ]
         ], $actual);
+    }
+
+    /**
+     * Проверка метода jsonSerialize на стеке после полного удаления элементов
+     *
+     * @return void
+     */
+    #[Test] public function stackJsonOnFullPop(): void
+    {
+        $stack = new Stack();
+        foreach (range(1, 5) as $i) {
+            $stack->push((string)$i);
+        }
+        foreach (range(1, 5) as $i) {
+            $stack->pop();
+        }
+
+        $actual = $stack->jsonSerialize();
+
+        static::assertEquals([], $actual);
     }
 }

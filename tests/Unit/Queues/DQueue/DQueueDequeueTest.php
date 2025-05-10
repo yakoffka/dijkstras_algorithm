@@ -77,4 +77,45 @@ class DQueueDequeueTest extends TestCase
         static::assertEquals('1', $actual_1);
         static::assertEquals('2', $actual_2);
     }
+
+    /**
+     * Проверка получения первого элемента из очереди, из которой удалили все элементы
+     *
+     * @return void
+     */
+    #[Test] public function dQueueDequeueFull(): void
+    {
+        $queue = new DQueue();
+        foreach (range(1, 5) as $i) {
+            $queue->enqueue((string)$i);
+        }
+        foreach (range(1, 5) as $i) {
+            $queue->dequeue();
+        }
+
+        $actual = $queue->dequeue();
+
+        static::assertEquals(null, $actual);
+    }
+
+    /**
+     * Проверка повторного получения первого элемента из очереди, из которой удалили все элементы
+     *
+     * @return void
+     */
+    #[Test] public function dQueueDequeueOverFull(): void
+    {
+        $queue = new DQueue();
+        foreach (range(1, 5) as $i) {
+            $queue->enqueue((string)$i);
+        }
+        foreach (range(1, 5) as $i) {
+            $queue->dequeue();
+        }
+
+        $queue->dequeue();
+        $actual = $queue->dequeue();
+
+        static::assertEquals(null, $actual);
+    }
 }

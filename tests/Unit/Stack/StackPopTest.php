@@ -77,4 +77,45 @@ class StackPopTest extends TestCase
         static::assertEquals('5', $actual_1);
         static::assertEquals('4', $actual_2);
     }
+
+    /**
+     * Проверка получения последнего элемента из стека, из которого удалили все элементы
+     *
+     * @return void
+     */
+    #[Test] public function stackPopFull(): void
+    {
+        $stack = new Stack();
+        foreach (range(1, 5) as $i) {
+            $stack->push((string)$i);
+        }
+        foreach (range(1, 5) as $i) {
+            $stack->pop();
+        }
+
+        $actual = $stack->pop();
+
+        static::assertEquals(null, $actual);
+    }
+
+    /**
+     * Проверка повторного получения последнего элемента из стека, из которого удалили все элементы
+     *
+     * @return void
+     */
+    #[Test] public function stackPopOverFull(): void
+    {
+        $stack = new Stack();
+        foreach (range(1, 5) as $i) {
+            $stack->push((string)$i);
+        }
+        foreach (range(1, 5) as $i) {
+            $stack->pop();
+        }
+
+        $stack->pop();
+        $actual = $stack->pop();
+
+        static::assertEquals(null, $actual);
+    }
 }

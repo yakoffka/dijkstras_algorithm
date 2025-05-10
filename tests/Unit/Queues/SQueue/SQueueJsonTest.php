@@ -17,7 +17,7 @@ class SQueueJsonTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function stackJsonOnEmpty(): void
+    #[Test] public function sQueueJsonOnEmpty(): void
     {
         $queue = new SQueue();
 
@@ -31,7 +31,7 @@ class SQueueJsonTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function stackJsonOnSingleNode(): void
+    #[Test] public function sQueueJsonOnSingleNode(): void
     {
         $queue = new SQueue();
         $queue->enqueue('a');
@@ -51,7 +51,7 @@ class SQueueJsonTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function stackJsonOn5Nodes(): void
+    #[Test] public function sQueueJsonOn5Nodes(): void
     {
         $queue = new SQueue();
         foreach (range(1, 5) as $i) {
@@ -85,11 +85,11 @@ class SQueueJsonTest extends TestCase
     }
 
     /**
-     * Проверка метода jsonSerialize на очереди, содержащей несколько (5) элементов после удаления двух элементов
+     * Проверка метода jsonSerialize на очереди после частичного удаления элементов
      *
      * @return void
      */
-    #[Test] public function stackJsonOn3Nodes(): void
+    #[Test] public function sQueueJsonOnPartDequeues(): void
     {
         $queue = new SQueue();
         foreach (range(1, 5) as $i) {
@@ -114,5 +114,25 @@ class SQueueJsonTest extends TestCase
                 'link' => null,
             ]
         ], $actual);
+    }
+
+    /**
+     * Проверка метода jsonSerialize на очереди после полного удаления элементов
+     *
+     * @return void
+     */
+    #[Test] public function sQueueJsonOnFullDequeues(): void
+    {
+        $queue = new SQueue();
+        foreach (range(1, 5) as $i) {
+            $queue->enqueue((string)$i);
+        }
+        foreach (range(1, 5) as $i) {
+            $queue->dequeue();
+        }
+
+        $actual = $queue->jsonSerialize();
+
+        static::assertEquals([], $actual);
     }
 }

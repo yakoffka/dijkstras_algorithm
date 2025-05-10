@@ -61,6 +61,7 @@ class SQueue implements JsonSerializable, Countable
 
         if ($this->last === $node) {
             $this->last = null;
+            $this->first = null;
 
         } else {
             $this->first = $this->getNext($node);

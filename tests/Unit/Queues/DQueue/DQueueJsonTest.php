@@ -17,7 +17,7 @@ class DQueueJsonTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function stackJsonOnEmpty(): void
+    #[Test] public function dQueueJsonOnEmpty(): void
     {
         $queue = new DQueue();
 
@@ -31,7 +31,7 @@ class DQueueJsonTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function stackJsonOnSingleNode(): void
+    #[Test] public function dQueueJsonOnSingleNode(): void
     {
         $queue = new DQueue();
         $queue->enqueue('a');
@@ -52,7 +52,7 @@ class DQueueJsonTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function stackJsonOn5Nodes(): void
+    #[Test] public function dQueueJsonOn5Nodes(): void
     {
         $queue = new DQueue();
         foreach (range(1, 5) as $i) {
@@ -91,11 +91,11 @@ class DQueueJsonTest extends TestCase
     }
 
     /**
-     * Проверка метода jsonSerialize на очереди, содержащей несколько (5) элементов после удаления двух элементов
+     * Проверка метода jsonSerialize на очереди после частичного удаления элементов
      *
      * @return void
      */
-    #[Test] public function stackJsonOn3Nodes(): void
+    #[Test] public function dQueueJsonOnPartDequeues(): void
     {
         $queue = new DQueue();
         foreach (range(1, 5) as $i) {
@@ -123,5 +123,25 @@ class DQueueJsonTest extends TestCase
                 'next' => '4',
             ],
         ], $actual);
+    }
+
+    /**
+     * Проверка метода jsonSerialize на очереди, из которой удалены все элементы
+     *
+     * @return void
+     */
+    #[Test] public function dQueueJsonOnFullDequeues(): void
+    {
+        $queue = new DQueue();
+        foreach (range(1, 5) as $i) {
+            $queue->enqueue((string)$i);
+        }
+        foreach (range(1, 5) as $i) {
+            $queue->dequeue();
+        }
+
+        $actual = $queue->jsonSerialize();
+
+        static::assertEquals([], $actual);
     }
 }
