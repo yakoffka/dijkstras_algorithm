@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\SQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queues\DQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\Queue\SinglyLinkedRealQueue\SQueue;
+use Yakoffka\DijkstrasAlgorithm\Queues\DQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- * Тестирование метода добавления в очередь: SQueue::enqueue();
+ * Тестирование метода добавления в очередь: DQueue::enqueue();
  */
-class SQueueEnqueueTest extends TestCase
+class DQueueEnqueueTest extends TestCase
 {
     /**
      * Проверка добавления в очередь одного элемента
      *
      * @return void
      */
-    #[Test] public function sQueueEnqueueOneNode(): void
+    #[Test] public function dQueueEnqueueOneNode(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
 
         $queue->enqueue('a');
 
@@ -31,9 +31,9 @@ class SQueueEnqueueTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function sQueueEnqueue5Nodes(): void
+    #[Test] public function dQueueEnqueue5Nodes(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
 
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);

@@ -59,4 +59,16 @@ class DoubleNode
     {
         $this->next = $next;
     }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'payload' => $this->payload,
+            'prev' => $this->prev?->payload,
+            'next' => $this->next?->payload,
+        ];
+    }
 }

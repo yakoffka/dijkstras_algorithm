@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\DQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queues\SQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue\DQueue;
+use Yakoffka\DijkstrasAlgorithm\Queues\SQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- * Тестирование метода удаления элемента из очереди: DQueue::dequeue();
+ * Тестирование метода удаления элемента из очереди: SQueue::dequeue();
  */
-class DQueueDequeueTest extends TestCase
+class SQueueDequeueTest extends TestCase
 {
     /**
      * Проверка получения первого элемента из пустой очереди
      *
      * @return void
      */
-    #[Test] public function dQueueDequeueOnEmpty(): void
+    #[Test] public function sQueueDequeueOnEmpty(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
 
         $actual = $queue->dequeue();
 
@@ -31,9 +31,9 @@ class DQueueDequeueTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueueDequeueOnSingleNode(): void
+    #[Test] public function sQueueDequeueOnSingleNode(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         $expected = 'a';
         $queue->enqueue($expected);
 
@@ -47,9 +47,9 @@ class DQueueDequeueTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueueDequeueOn5Nodes(): void
+    #[Test] public function sQueueDequeueOn5Nodes(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);
         }
@@ -64,9 +64,9 @@ class DQueueDequeueTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueueDequeueDouble(): void
+    #[Test] public function sQueueDequeueDouble(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);
         }

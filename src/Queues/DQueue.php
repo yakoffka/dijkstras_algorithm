@@ -1,18 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
 use Countable;
 use JsonSerializable;
+use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
 
 /**
  * Очередь на основе двусвязного списка
  */
 class DQueue implements JsonSerializable, Countable
 {
-    private ?DQueueNode $first = null;
-    private ?DQueueNode $last = null;
+    private ?DoubleNode $first = null;
+    private ?DoubleNode $last = null;
 
     /**
      * Добавление элемента в конец очереди
@@ -24,7 +25,7 @@ class DQueue implements JsonSerializable, Countable
      */
     public function enqueue(string $payload): void
     {
-        $node = new DQueueNode(payload: $payload, prev: $this->last);
+        $node = new DoubleNode(payload: $payload, prev: $this->last);
         $this->last?->setNext($node);
         $this->last = $node;
 
@@ -130,6 +131,6 @@ class DQueue implements JsonSerializable, Countable
             $node = $node->getPrev();
         }
 
-        return array_map(static fn(DQueueNode $node) => $node->jsonSerialize(), $result ?? []);
+        return array_map(static fn(DoubleNode $node) => $node->jsonSerialize(), $result ?? []);
     }
 }

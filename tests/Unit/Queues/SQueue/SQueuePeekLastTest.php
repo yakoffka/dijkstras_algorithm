@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\DQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queues\SQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue\DQueue;
+use Yakoffka\DijkstrasAlgorithm\Queues\SQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- * Тестирование метода чтения последнего элемента: DQueue::peekLast();
+ * Тестирование метода чтения последнего элемента: SQueue::peekLast();
  */
-class DQueuePeekLastTest extends TestCase
+class SQueuePeekLastTest extends TestCase
 {
     /**
      * Проверка чтения последнего элемента на пустой очереди
      *
      * @return void
      */
-    #[Test] public function dQueuePeekLastOnEmpty(): void
+    #[Test] public function sQueuePeekLastOnEmpty(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
 
         $first = $queue->peekLast();
 
@@ -31,9 +31,9 @@ class DQueuePeekLastTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueuePeekLastOnSingleNode(): void
+    #[Test] public function sQueuePeekLastOnSingleNode(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         $expected = 'a';
         $queue->enqueue($expected);
 
@@ -47,9 +47,9 @@ class DQueuePeekLastTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueuePeekLastOn5Nodes(): void
+    #[Test] public function sQueuePeekLastOn5Nodes(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);
         }
@@ -64,9 +64,9 @@ class DQueuePeekLastTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueuePeekLastDouble(): void
+    #[Test] public function sQueuePeekLastDouble(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         $first = '1';
         $second = '2';
         $queue->enqueue($first);

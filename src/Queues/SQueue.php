@@ -1,18 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Queue\SinglyLinkedRealQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
 use Countable;
+use JsonSerializable;
+use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
+use Yakoffka\DijkstrasAlgorithm\Primitives\SingleNode;
 
 /**
- * Очередь (на основе односвязного списка) FIFO.
- * У очереди есть доступ и к первому и к последнему элементу.
+ * Очередь на основе односвязного списка
  */
-class SQueue implements Countable
+class SQueue implements JsonSerializable, Countable
 {
-    private ?SQueueNode $first = null;
-    private ?SQueueNode $last = null;
+    private ?SingleNode $first = null;
+    private ?SingleNode $last = null;
 
     /**
      * Добавление элемента в конец очереди
@@ -24,7 +26,7 @@ class SQueue implements Countable
      */
     public function enqueue(string $payload): void
     {
-        $this->last = new SQueueNode(payload: $payload, prev: $this->last);
+        $this->last = new SingleNode(payload: $payload, link: $this->last);
 
         $this->first ??= $this->last;
     }
@@ -63,7 +65,7 @@ class SQueue implements Countable
 
         } else {
             $this->first = $this->getNext($node);
-            $this->first?->unsetPrev();
+            $this->first?->setLink(null);
         }
 
         return $node?->getPayload();
@@ -91,7 +93,7 @@ class SQueue implements Countable
         $node = $this->last;
         while ($node !== null) {
             $count++;
-            $node = $node->getPrev();
+            $node = $node->getLink();
         }
 
         return $count;
@@ -109,24 +111,39 @@ class SQueue implements Countable
 
         while ($current !== null) {
             $result[] = $current->getPayload();
-            $current = $current->getPrev();
+            $current = $current->getLink();
         }
 
         return implode(' -> ', $result);
     }
 
     /**
-     * Динамическое получение следующего элемента очереди (в узле есть ссылка только на предыдущий)
-     *
-     * @param SQueueNode $current
-     * @return SQueueNode|null
+     * @return array
      */
-    private function getNext(SQueueNode $current): ?SQueueNode
+    public function jsonSerialize(): array
     {
         $node = $this->last;
 
-        while ($node !== null && $node->getPrev() !== $current) {
+        while ($node !== null) {
+            $result[] = $node;
             $node = $node->getPrev();
+        }
+
+        return array_map(static fn(DoubleNode $node) => $node->jsonSerialize(), $result ?? []);
+    }
+
+    /**
+     * Динамическое получение следующего элемента очереди (в узле есть ссылка только на предыдущий)
+     *
+     * @param SingleNode $current
+     * @return SingleNode|null
+     */
+    private function getNext(SingleNode $current): ?SingleNode
+    {
+        $node = $this->last;
+
+        while ($node !== null && $node->getLink() !== $current) {
+            $node = $node->getLink();
         }
 
         return $node;

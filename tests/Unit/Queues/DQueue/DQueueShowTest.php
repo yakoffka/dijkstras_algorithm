@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\SQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queues\DQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\Queue\SinglyLinkedRealQueue\SQueue;
+use Yakoffka\DijkstrasAlgorithm\Queues\DQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- * Тестирование метода строкового представления очереди: SQueue::show();
+ * Тестирование метода строкового представления очереди: DQueue::show();
  */
-class SQueueShowTest extends TestCase
+class DQueueShowTest extends TestCase
 {
     /**
      * Проверка строкового представления пустой очереди
      *
      * @return void
      */
-    #[Test] public function sQueueCountOnEmpty(): void
+    #[Test] public function dQueueShowOnEmpty(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
 
         $actual = $queue->show();
 
@@ -31,14 +31,14 @@ class SQueueShowTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function sQueueCountOnSingleNode(): void
+    #[Test] public function dQueueShowOnSingleNode(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
         $queue->enqueue('a');
 
-        $actual = $queue->count();
+        $actual = $queue->show();
 
-        static::assertEquals('1', $actual);
+        static::assertEquals('a', $actual);
     }
 
     /**
@@ -46,9 +46,9 @@ class SQueueShowTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function sQueueCountOn5Nodes(): void
+    #[Test] public function dQueueShowOn5Nodes(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);
         }

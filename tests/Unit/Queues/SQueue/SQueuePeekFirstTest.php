@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\DQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queues\SQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue\DQueue;
+use Yakoffka\DijkstrasAlgorithm\Queues\SQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- * Тестирование метода чтения первого элемента: DQueue::peekFirst();
+ * Тестирование метода чтения первого элемента: SQueue::peekFirst();
  */
-class DQueuePeekFirstTest extends TestCase
+class SQueuePeekFirstTest extends TestCase
 {
     /**
      * Проверка чтения первого элемента на пустой очереди
      *
      * @return void
      */
-    #[Test] public function dQueuePeekFirstOnEmpty(): void
+    #[Test] public function sQueuePeekFirstOnEmpty(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
 
         $first = $queue->peekFirst();
 
@@ -31,9 +31,9 @@ class DQueuePeekFirstTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueuePeekFirstOnSingleNode(): void
+    #[Test] public function sQueuePeekFirstOnSingleNode(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         $expected = 'a';
         $queue->enqueue($expected);
 
@@ -47,9 +47,9 @@ class DQueuePeekFirstTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueuePeekFirstOn5Nodes(): void
+    #[Test] public function sQueuePeekFirstOn5Nodes(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);
         }
@@ -64,9 +64,9 @@ class DQueuePeekFirstTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueuePeekFirstDouble(): void
+    #[Test] public function sQueuePeekFirstDouble(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         $expected = 'a';
         $queue->enqueue($expected);
 

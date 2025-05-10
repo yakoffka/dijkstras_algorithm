@@ -3,18 +3,19 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\Primitives;
 
+use JsonSerializable;
+
 /**
  * Узел односвязного списка
  */
-class SingleNode extends DoubleNode
+class SingleNode implements JsonSerializable
 {
     /**
      * @param string $payload полезная нагрузка узла
-     * @param SingleNode|null $prev ссылка на предыдущий узел
+     * @param SingleNode|null $link ссылка на предыдущий или следующий узел
      */
-    public function __construct(private readonly string $payload, private readonly ?self $prev)
+    public function __construct(private readonly string $payload, private ?self $link = null)
     {
-        parent::__construct(payload: $this->payload, prev: $this->prev);
     }
 
     /**
@@ -22,14 +23,34 @@ class SingleNode extends DoubleNode
      */
     public function getPayload(): string
     {
-        return parent::getPayload();
+        return $this->payload;
     }
 
     /**
-     * @return $this|null
+     * @return SingleNode|null
      */
-    public function getPrev(): ?static
+    public function getLink(): ?SingleNode
     {
-        return parent::getPrev();
+        return $this->link;
+    }
+
+    /**
+     * @param SingleNode|null $link
+     * @return void
+     */
+    public function setLink(?SingleNode $link): void
+    {
+        $this->link = $link;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'payload' => $this->payload,
+            'link' => $this->link?->payload,
+        ];
     }
 }

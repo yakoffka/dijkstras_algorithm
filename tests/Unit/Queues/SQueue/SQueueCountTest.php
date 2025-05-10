@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\DQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queues\SQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue\DQueue;
+use Yakoffka\DijkstrasAlgorithm\Queues\SQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- * Тестирование метода подсчета количества элементов в очереди: DQueue::count();
+ * Тестирование метода подсчета количества элементов в очереди: SQueue::count();
  */
-class DQueueCountTest extends TestCase
+class SQueueCountTest extends TestCase
 {
     /**
      * Проверка подсчета количества элементов в пустой очереди
      *
      * @return void
      */
-    #[Test] public function dQueueCountOnEmpty(): void
+    #[Test] public function sQueueCountOnEmpty(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
 
         $actual = $queue->count();
 
@@ -31,9 +31,9 @@ class DQueueCountTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueueCountOnSingleNode(): void
+    #[Test] public function sQueueCountOnSingleNode(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         $queue->enqueue('a');
 
         $actual = $queue->count();
@@ -46,9 +46,9 @@ class DQueueCountTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function dQueueCountOn5Nodes(): void
+    #[Test] public function sQueueCountOn5Nodes(): void
     {
-        $queue = new DQueue();
+        $queue = new SQueue();
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);
         }

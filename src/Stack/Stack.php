@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Yakoffka\DijkstrasAlgorithm\Stack;
 
 use Countable;
+use Yakoffka\DijkstrasAlgorithm\Primitives\SingleNode;
 
 /**
  * Стек (на основе односвязного списка) LIFO.
@@ -11,16 +12,16 @@ use Countable;
  */
 class Stack implements Countable
 {
-    private ?StackNode $last = null;
+    private ?SingleNode $last = null;
 
     /**
-     * Добавление элемента в стек (в конец)
+     * Добавление элемента в стек
      *
      * @param string $payload
      */
     public function push(string $payload): void
     {
-        $this->last = new StackNode($payload, $this->last);
+        $this->last = new SingleNode($payload, $this->last);
     }
 
     /**
@@ -42,29 +43,37 @@ class Stack implements Countable
     {
         $result = $this->last?->getPayload();
 
-        $this->last = $this->last?->getPrev();
+        $this->last = $this->last?->getLink();
 
         return $result;
     }
 
     /**
-     * Отображение содержимого стека: от последнего к первому
+     * Получение строкового представления стека: от последнего (верхнего) к первому (нижнему) элементу
      *
-     * @return void
+     * @return string
      */
-    public function show(): void
+    public function show(): string
     {
         $result = [];
         $node = $this->last;
 
         while ($node !== null) {
             $result[] = $node->getPayload();
-            $node = $node->getPrev();
+            $node = $node->getLink();
         }
 
-        echo empty($result)
-            ? 'stack is empty' . PHP_EOL
-            : implode(' -> ', $result) . PHP_EOL;
+        return implode(' -> ', $result);
+    }
+
+    /**
+     * Проверка на пустоту: возвращает true, если стек пуст, и false в противном случае
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return $this->peek() === null;
     }
 
     /**
@@ -77,7 +86,7 @@ class Stack implements Countable
         $node = $this->last;
         while ($node !== null) {
             $count ++;
-            $node = $node->getPrev();
+            $node = $node->getLink();
         }
 
         return $count;
