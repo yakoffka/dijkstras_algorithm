@@ -17,12 +17,12 @@ class SQueue implements Countable
     /**
      * Добавление элемента в очередь (в конец)
      *
-     * При добавлении первого элемента в очередь он будет являться одновременно и последним, но ссылка на предыдущий
+     * При добавлении первого элемента в очередь он будет являться одновременно и последним, ссылка на предыдущий
      * узел не проставляется.
      *
      * @param string $payload
      */
-    public function push(string $payload): void
+    public function enqueue(string $payload): void
     {
         $this->last = new SQueueNode(payload: $payload, prev: $this->last);
 
@@ -40,7 +40,7 @@ class SQueue implements Countable
     }
 
     /**
-     * Получение последнего элемента очереди без его извлечения: кто последний?
+     * Получение последнего элемента очереди без его извлечения (кто последний?)
      *
      * @return string|null
      */
@@ -54,7 +54,7 @@ class SQueue implements Countable
      *
      * @return string|null
      */
-    public function shift(): ?string
+    public function dequeue(): ?string
     {
         $node = $this->first;
 
@@ -67,6 +67,34 @@ class SQueue implements Countable
         }
 
         return $node?->getPayload();
+    }
+
+    /**
+     * Проверка на пустоту: возвращает true, если очередь пуста, и false в противном случае
+     *
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return $this->peekFirst() === null;
+    }
+
+    /**
+     * Метод подсчета количества элементов в очереди
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        $count = 0;
+
+        $node = $this->last;
+        while ($node !== null) {
+            $count ++;
+            $node = $node->getPrev();
+        }
+
+        return $count;
     }
 
     /**
@@ -106,21 +134,5 @@ class SQueue implements Countable
         }
 
         return $node;
-    }
-
-    /**
-     * @return int
-     */
-    public function count(): int
-    {
-        $count = 0;
-
-        $node = $this->last;
-        while ($node !== null) {
-            $count ++;
-            $node = $node->getPrev();
-        }
-
-        return $count;
     }
 }

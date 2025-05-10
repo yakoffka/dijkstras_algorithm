@@ -8,32 +8,32 @@ require 'vendor/autoload.php';
 $queue = new SQueue();
 $queue->show();
 
-$queue->push('first');
-$queue->push('second');
-$queue->push('third');
-$queue->push('fourth');
+$queue->enqueue('first');
+$queue->enqueue('second');
+$queue->enqueue('third');
+$queue->enqueue('fourth');
 $queue->show();
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 
-$queue->push('fifth');
+$queue->enqueue('fifth');
 $queue->show();
 
-$queue->push('sixth');
+$queue->enqueue('sixth');
 $queue->show();

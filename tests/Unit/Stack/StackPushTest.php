@@ -5,6 +5,7 @@ namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Stack;
 
 use PHPUnit\Framework\Attributes\Test;
 use Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue\SQueue;
+use Yakoffka\DijkstrasAlgorithm\Stack\Stack;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 class StackPushTest extends TestCase
@@ -14,7 +15,7 @@ class StackPushTest extends TestCase
      */
     #[Test] public function sQueuePushEmptySimple(): void
     {
-        $stack = new SQueue();
+        $stack = new Stack();
 
         static::assertCount(0, $stack);
     }
@@ -24,7 +25,7 @@ class StackPushTest extends TestCase
      */
     #[Test] public function sQueuePushOneSimple(): void
     {
-        $stack = new SQueue();
+        $stack = new Stack();
 
         $stack->push('a');
 
@@ -36,7 +37,7 @@ class StackPushTest extends TestCase
      */
     #[Test] public function sQueuePushRandSimple(): void
     {
-        $stack = new SQueue();
+        $stack = new Stack();
         $counter = rand(1, 10);
 
         foreach (range(1, $counter) as $i) {
