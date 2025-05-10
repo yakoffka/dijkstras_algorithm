@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Queue\SinglyLinkedRealQueue;
 
 use Countable;
 
@@ -15,7 +15,7 @@ class SQueue implements Countable
     private ?SQueueNode $last = null;
 
     /**
-     * Добавление элемента в очередь (в конец)
+     * Добавление элемента в конец очереди
      *
      * При добавлении первого элемента в очередь он будет являться одновременно и последним, ссылка на предыдущий
      * узел не проставляется.
@@ -40,7 +40,7 @@ class SQueue implements Countable
     }
 
     /**
-     * Получение последнего элемента очереди без его извлечения (кто последний?)
+     * Получение последнего элемента очереди без его извлечения
      *
      * @return string|null
      */
@@ -80,7 +80,7 @@ class SQueue implements Countable
     }
 
     /**
-     * Метод подсчета количества элементов в очереди
+     * Подсчет количества элементов в очереди
      *
      * @return int
      */
@@ -90,7 +90,7 @@ class SQueue implements Countable
 
         $node = $this->last;
         while ($node !== null) {
-            $count ++;
+            $count++;
             $node = $node->getPrev();
         }
 

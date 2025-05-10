@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Queue\SinglyLinkedRealQueue;
 
 use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue\SQueue;
+use Yakoffka\DijkstrasAlgorithm\Queue\SinglyLinkedRealQueue\SQueue;
 
 require 'vendor/autoload.php';
 

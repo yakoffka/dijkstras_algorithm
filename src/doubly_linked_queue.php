@@ -1,45 +1,45 @@
 <?php
 declare(strict_types=1);
 
-use Yakoffka\DijkstrasAlgorithm\DoublyLinkedRealQueue\DQueue;
+use Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue\DQueue;
 
 require 'vendor/autoload.php';
 
 $queue = new DQueue();
 $queue->show();
 
-$queue->push('first');
-$queue->push('second');
-$queue->push('third');
-$queue->push('fourth');
+$queue->enqueue('first');
+$queue->enqueue('second');
+$queue->enqueue('third');
+$queue->enqueue('fourth');
 // print_r(json_decode(json_encode($queue, JSON_THROW_ON_ERROR), true));
 
 //$queue->show();
 
-$queue->shift();
+$queue->dequeue();
 // print_r(json_decode(json_encode($queue, JSON_THROW_ON_ERROR), true));
 
-$queue->shift();
-$queue->show();
-// print_r(json_decode(json_encode($queue, JSON_THROW_ON_ERROR), true));
-
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 // print_r(json_decode(json_encode($queue, JSON_THROW_ON_ERROR), true));
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 // print_r(json_decode(json_encode($queue, JSON_THROW_ON_ERROR), true));
 
-$queue->shift();
+$queue->dequeue();
 $queue->show();
 // print_r(json_decode(json_encode($queue, JSON_THROW_ON_ERROR), true));
 
-$queue->shift();
+$queue->dequeue();
+$queue->show();
+// print_r(json_decode(json_encode($queue, JSON_THROW_ON_ERROR), true));
+
+$queue->dequeue();
 $queue->show();
 
-$queue->push('fifth');
+$queue->enqueue('fifth');
 $queue->show();
 
-$queue->push('sixth');
+$queue->enqueue('sixth');
 $queue->show();

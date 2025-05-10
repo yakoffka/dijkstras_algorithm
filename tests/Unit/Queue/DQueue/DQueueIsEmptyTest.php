@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\SQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\DQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue\SQueue;
+use Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue\DQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**
- * Тестирование метода "проверка на пустоту" очереди: SQueue::isEmpty();
+ * Тестирование метода "проверка на пустоту" очереди: DQueue::isEmpty();
  */
-class SQueueIsEmptyTest extends TestCase
+class DQueueIsEmptyTest extends TestCase
 {
     /**
      * Проверка пустой очереди на пустоту
      *
      * @return void
      */
-    #[Test] public function sQueueIsEmptyOnEmpty(): void
+    #[Test] public function dQueueIsEmptyOnEmpty(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
 
         $actual = $queue->isEmpty();
 
@@ -31,9 +31,9 @@ class SQueueIsEmptyTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function sQueueIsEmptyOnSingleNode(): void
+    #[Test] public function dQueueIsEmptyOnSingleNode(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
         $queue->enqueue('a');
 
         $actual = $queue->isEmpty();
@@ -46,9 +46,9 @@ class SQueueIsEmptyTest extends TestCase
      *
      * @return void
      */
-    #[Test] public function sQueueIsEmptyOn5Nodes(): void
+    #[Test] public function dQueueIsEmptyOn5Nodes(): void
     {
-        $queue = new SQueue();
+        $queue = new DQueue();
         foreach (range(1, 5) as $i) {
             $queue->enqueue((string)$i);
         }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Stack;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue\SQueue;
 use Yakoffka\DijkstrasAlgorithm\Stack\Stack;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 

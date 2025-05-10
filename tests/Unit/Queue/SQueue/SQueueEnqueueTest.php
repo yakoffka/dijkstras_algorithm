@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\SQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queue\SQueue;
 
 use PHPUnit\Framework\Attributes\Test;
-use Yakoffka\DijkstrasAlgorithm\SinglyLinkedRealQueue\SQueue;
+use Yakoffka\DijkstrasAlgorithm\Queue\SinglyLinkedRealQueue\SQueue;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
 /**

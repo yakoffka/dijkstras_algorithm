@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\DoublyLinkedRealQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Queue\DoublyLinkedRealQueue;
 
 use JsonSerializable;
 use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
