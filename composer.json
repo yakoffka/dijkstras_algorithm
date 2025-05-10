@@ -17,6 +17,9 @@
       "email": "yagithub@mail.ru"
     }
   ],
+  "require": {
+    "php": ">=8.3"
+  },
   "require-dev": {
     "phpunit/phpunit": "^11.5"
   },
