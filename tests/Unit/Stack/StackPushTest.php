@@ -7,22 +7,17 @@ use PHPUnit\Framework\Attributes\Test;
 use Yakoffka\DijkstrasAlgorithm\Stack\Stack;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
 
+/**
+ * Тестирование метода добавления в стек: Stack::push();
+ */
 class StackPushTest extends TestCase
 {
     /**
+     * Проверка добавления в очередь одного элемента
+     *
      * @return void
      */
-    #[Test] public function sQueuePushEmptySimple(): void
-    {
-        $stack = new Stack();
-
-        static::assertCount(0, $stack);
-    }
-
-    /**
-     * @return void
-     */
-    #[Test] public function sQueuePushOneSimple(): void
+    #[Test] public function stackPushOneNode(): void
     {
         $stack = new Stack();
 
@@ -32,17 +27,18 @@ class StackPushTest extends TestCase
     }
 
     /**
+     * Проверка добавления в очередь нескольких (5) элементов
+     *
      * @return void
      */
-    #[Test] public function sQueuePushRandSimple(): void
+    #[Test] public function stackPush5Nodes(): void
     {
         $stack = new Stack();
-        $counter = rand(1, 10);
 
-        foreach (range(1, $counter) as $i) {
+        foreach (range(1, 5) as $i) {
             $stack->push((string)$i);
         }
 
-        static::assertCount($counter, $stack);
+        static::assertCount(5, $stack);
     }
 }
