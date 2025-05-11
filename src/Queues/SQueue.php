@@ -5,15 +5,15 @@ namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
 use Countable;
 use JsonSerializable;
-use Yakoffka\DijkstrasAlgorithm\Primitives\SingleNode;
+use Yakoffka\DijkstrasAlgorithm\Nodes\SingleNode;
 
 /**
  * Очередь на основе односвязного списка
  */
-class SQueue implements JsonSerializable, Countable
+class SQueue extends AbstractQueue implements JsonSerializable, Countable
 {
-    private ?SingleNode $first = null;
-    private ?SingleNode $last = null;
+    protected ?SingleNode $first = null;
+    protected ?SingleNode $last = null;
 
     /**
      * Добавление элемента в конец очереди
@@ -69,34 +69,6 @@ class SQueue implements JsonSerializable, Countable
         }
 
         return $node?->getPayload();
-    }
-
-    /**
-     * Проверка на пустоту: возвращает true, если очередь пуста, и false в противном случае
-     *
-     * @return bool
-     */
-    public function isEmpty(): bool
-    {
-        return $this->peekFirst() === null;
-    }
-
-    /**
-     * Подсчет количества элементов в очереди
-     *
-     * @return int
-     */
-    public function count(): int
-    {
-        $count = 0;
-
-        $node = $this->last;
-        while ($node !== null) {
-            $count++;
-            $node = $node->getLink();
-        }
-
-        return $count;
     }
 
     /**

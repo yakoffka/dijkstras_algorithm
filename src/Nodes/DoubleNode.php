@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yakoffka\DijkstrasAlgorithm\Primitives;
+namespace Yakoffka\DijkstrasAlgorithm\Nodes;
 
 /**
  * Узел двусвязного списка

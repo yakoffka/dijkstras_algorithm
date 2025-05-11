@@ -5,15 +5,15 @@ namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
 use Countable;
 use JsonSerializable;
-use Yakoffka\DijkstrasAlgorithm\Primitives\DoubleNode;
+use Yakoffka\DijkstrasAlgorithm\Nodes\DoubleNode;
 
 /**
  * Очередь на основе двусвязного списка
  */
-class DQueue implements JsonSerializable, Countable
+class DQueue extends AbstractQueue implements JsonSerializable, Countable
 {
-    private ?DoubleNode $first = null;
-    private ?DoubleNode $last = null;
+     protected ?DoubleNode $first = null;
+     protected ?DoubleNode $last = null;
 
     /**
      * Добавление элемента в конец очереди
@@ -60,6 +60,7 @@ class DQueue implements JsonSerializable, Countable
     public function dequeue(): ?string
     {
         $node = $this->first;
+
         if ($this->last === $this->first) {
             $this->last = null;
             $this->first = null;
@@ -71,34 +72,6 @@ class DQueue implements JsonSerializable, Countable
         $this->first?->setPrev(null);
 
         return $result;
-    }
-
-    /**
-     * Проверка на пустоту: возвращает true, если очередь пуста, и false в противном случае
-     *
-     * @return bool
-     */
-    public function isEmpty(): bool
-    {
-        return $this->peekFirst() === null;
-    }
-
-    /**
-     * Подсчет количества элементов в очереди
-     *
-     * @return int
-     */
-    public function count(): int
-    {
-        $count = 0;
-
-        $node = $this->last;
-        while ($node !== null) {
-            $count ++;
-            $node = $node->getPrev();
-        }
-
-        return $count;
     }
 
     /**

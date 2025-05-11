@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Yakoffka\DijkstrasAlgorithm\Stack;
 
 use Countable;
+use InvalidArgumentException;
 use JsonSerializable;
-use Yakoffka\DijkstrasAlgorithm\Primitives\SingleNode;
+use Yakoffka\DijkstrasAlgorithm\Nodes\SingleNode;
 
 /**
  * Стек (на основе односвязного списка) LIFO.
@@ -14,6 +15,25 @@ use Yakoffka\DijkstrasAlgorithm\Primitives\SingleNode;
 class Stack implements JsonSerializable, Countable
 {
     private ?SingleNode $last = null;
+
+    /**
+     * @param array<string> $array
+     * @return self
+     * @todo протестировать!
+     */
+    public static function fromArray(array $array): self
+    {
+        $stack = new self();
+
+        foreach ($array as $item) {
+            // if(!is_string($item)) {
+            //     throw new InvalidArgumentException('Stack item must be a string.');
+            // }
+            $stack->push($item);
+        }
+
+        return $stack;
+    }
 
     /**
      * Добавление элемента в стек
@@ -60,19 +80,41 @@ class Stack implements JsonSerializable, Countable
     }
 
     /**
+     * Получение количества элементов
+     *
      * @return int
      */
     public function count(): int
     {
-        $count = 0;
+        return count(iterator_to_array($this->iterate()));
+    }
 
+    /**
+     * Обход всех элементов с помощью генератора
+     *
+     * @return iterable
+     * @todo протестировать!
+     */
+    public function iterate(): iterable
+    {
         $node = $this->last;
         while ($node !== null) {
-            $count ++;
+            yield $node;
             $node = $node->getLink();
         }
+    }
 
-        return $count;
+    /**
+     * Извлечение всех элементов с помощью генератора
+     *
+     * @return iterable
+     * @todo протестировать!
+     */
+    public function iteratePop(): iterable
+    {
+        while (!$this->isEmpty()) {
+            yield $this->pop();
+        }
     }
 
     /**
@@ -106,5 +148,23 @@ class Stack implements JsonSerializable, Countable
         }
 
         return array_map(static fn(SingleNode $node) => $node->jsonSerialize(), $result ?? []);
+    }
+
+    /**
+     * Проверка наличия узла в стеке
+     *
+     * @param string $verifiable
+     * @return bool
+     */
+    public function contain(string $verifiable): bool
+    {
+        /** @var SingleNode $node */
+        foreach ($this->iterate() as $node) {
+            if ($verifiable === $node->getPayload()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
