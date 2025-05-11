@@ -3,13 +3,16 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
+use Countable;
+use JsonSerializable;
+use Yakoffka\DijkstrasAlgorithm\Interfaces\Sequencable;
 use Yakoffka\DijkstrasAlgorithm\Nodes\DoubleNode;
 use Yakoffka\DijkstrasAlgorithm\Nodes\SingleNode;
 
 /**
  * Абстрактный класс для вынесения общих методов очередей на основе одно- и двусвязных списков
  */
-abstract class AbstractQueue
+abstract class AbstractQueue implements JsonSerializable, Countable, Sequencable
 {
     /**
      * @param array<string> $array
@@ -112,14 +115,14 @@ abstract class AbstractQueue
     /**
      * Проверка наличия узла в очереди
      *
-     * @param string $verifiable
+     * @param string $node_payload
      * @return bool
      */
-    public function contain(string $verifiable): bool
+    public function contains(string $node_payload): bool
     {
         /** @var SingleNode|DoubleNode $node */
         foreach ($this->iterate() as $node) {
-            if ($verifiable === $node->getPayload()) {
+            if ($node_payload === $node->getPayload()) {
                 return true;
             }
         }

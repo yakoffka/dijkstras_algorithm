@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Unit\Graph;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Graph;
 
 use PHPUnit\Framework\Attributes\Test;
 use Yakoffka\DijkstrasAlgorithm\Graph\Graph;

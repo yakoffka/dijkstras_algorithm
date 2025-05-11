@@ -3,17 +3,15 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
-use Countable;
-use JsonSerializable;
 use Yakoffka\DijkstrasAlgorithm\Nodes\DoubleNode;
 
 /**
  * Очередь на основе двусвязного списка
  */
-class DQueue extends AbstractQueue implements JsonSerializable, Countable
+class DQueue extends AbstractQueue
 {
-     protected ?DoubleNode $first = null;
-     protected ?DoubleNode $last = null;
+    protected ?DoubleNode $first = null;
+    protected ?DoubleNode $last = null;
 
     /**
      * Добавление элемента в конец очереди

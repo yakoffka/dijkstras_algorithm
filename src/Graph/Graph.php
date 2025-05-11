@@ -6,12 +6,19 @@ namespace Yakoffka\DijkstrasAlgorithm\Graph;
 use Countable;
 use JsonSerializable;
 use RuntimeException;
+use Yakoffka\DijkstrasAlgorithm\Interfaces\Sequencable;
 
 /**
  * Реализация неориентированного графа на основе матрицы смежности
  */
-class Graph implements JsonSerializable, Countable
+class Graph implements JsonSerializable, Countable, Sequencable
 {
+    /**
+     * @var array Список смежности — один из способов представления графа в виде коллекции списков вершин.
+     * Каждой вершине графа соответствует список, состоящий из «соседей» этой вершины.
+     */
+    private array $adjacencyList = [];
+
     /**
      * @param array $nodes
      * @param array $edges
@@ -34,11 +41,6 @@ class Graph implements JsonSerializable, Countable
     }
 
     /**
-     * @var array матрица смежности вершин графа
-     */
-    private array $edges = [];
-
-    /**
      * Добавление вершины графа
      *
      * @param string $node
@@ -46,7 +48,7 @@ class Graph implements JsonSerializable, Countable
      */
     public function addNode(string $node): self
     {
-        $this->edges[$node] = [];
+        $this->adjacencyList[$node] = [];
 
         return $this;
     }
@@ -63,8 +65,8 @@ class Graph implements JsonSerializable, Countable
     {
         $this->checkEdgeNodes($node1, $node2);
 
-        $this->edges[$node1][$node2] = $weight;
-        $this->edges[$node2][$node1] = $weight;
+        $this->adjacencyList[$node1][$node2] = $weight;
+        $this->adjacencyList[$node2][$node1] = $weight;
 
         return $this;
     }
@@ -80,13 +82,23 @@ class Graph implements JsonSerializable, Countable
     }
 
     /**
+     * Получение матрицы смежности вершин графа
+     *
+     * @return array
+     */
+    public function getAdjacencyList(): array
+    {
+        return $this->adjacencyList;
+    }
+
+    /**
      * Получение генератора всех узлов графа
      *
      * @return iterable
      */
     public function iterateNodes(): iterable
     {
-        foreach ($this->edges as $node => $_weights) {
+        foreach ($this->adjacencyList as $node => $_weights) {
             yield $node;
         }
     }
@@ -98,7 +110,7 @@ class Graph implements JsonSerializable, Countable
      */
     public function getEdges(): iterable
     {
-        foreach ($this->edges as $node1 => $weights) {
+        foreach ($this->adjacencyList as $node1 => $weights) {
             foreach ($weights as $node2 => $weight) {
                 yield "$node1-$node2: $weight";
             }
@@ -113,7 +125,7 @@ class Graph implements JsonSerializable, Countable
      */
     public function getNodeEdges(string $node): iterable
     {
-        foreach ($this->edges[$node] as $node2 => $weight) {
+        foreach ($this->adjacencyList[$node] as $node2 => $weight) {
             yield $node2 => $weight;
         }
     }
@@ -126,7 +138,7 @@ class Graph implements JsonSerializable, Countable
      */
     public function getNeighboursNodes(string $node): iterable
     {
-        foreach ($this->edges[$node] as $node2 => $_weight) {
+        foreach ($this->adjacencyList[$node] as $node2 => $_weight) {
             yield $node2;
         }
     }
@@ -136,7 +148,7 @@ class Graph implements JsonSerializable, Countable
      */
     public function jsonSerialize(): array
     {
-        return $this->edges;
+        return $this->adjacencyList;
     }
 
     /**
@@ -146,20 +158,20 @@ class Graph implements JsonSerializable, Countable
      */
     public function count(): int
     {
-        return count($this->edges);
+        return count($this->adjacencyList);
     }
 
     /**
      * Проверка наличия узла в графе
      *
-     * @param string $verifiable
+     * @param string $node_payload
      * @return bool
      */
-    private function containNode(string $verifiable): bool
+    public function contains(string $node_payload): bool
     {
         foreach ($this?->iterateNodes() as $node) {
 
-            if ($verifiable === $node) {
+            if ($node_payload === $node) {
                 return true;
             }
         }
@@ -176,11 +188,11 @@ class Graph implements JsonSerializable, Countable
      */
     private function checkEdgeNodes(string $node1, string $node2): void
     {
-        if(!$this->containNode($node1)) {
+        if(!$this->contains($node1)) {
             throw new RuntimeException("Node '$node1' does not exist");
         }
 
-        if(!$this->containNode($node2)) {
+        if(!$this->contains($node2)) {
             throw new RuntimeException("Node '$node2' does not exist");
         }
     }

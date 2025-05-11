@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Unit\Stack;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Stack;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

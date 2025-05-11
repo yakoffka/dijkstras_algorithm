@@ -4,15 +4,15 @@ declare(strict_types=1);
 namespace Yakoffka\DijkstrasAlgorithm\Stack;
 
 use Countable;
-use InvalidArgumentException;
 use JsonSerializable;
+use Yakoffka\DijkstrasAlgorithm\Interfaces\Sequencable;
 use Yakoffka\DijkstrasAlgorithm\Nodes\SingleNode;
 
 /**
  * Стек (на основе односвязного списка) LIFO.
  * У Стека есть доступ только к последнему элементу.
  */
-class Stack implements JsonSerializable, Countable
+class Stack implements JsonSerializable, Countable, Sequencable
 {
     private ?SingleNode $last = null;
 
@@ -153,14 +153,14 @@ class Stack implements JsonSerializable, Countable
     /**
      * Проверка наличия узла в стеке
      *
-     * @param string $verifiable
+     * @param string $node_payload
      * @return bool
      */
-    public function contain(string $verifiable): bool
+    public function contains(string $node_payload): bool
     {
         /** @var SingleNode $node */
         foreach ($this->iterate() as $node) {
-            if ($verifiable === $node->getPayload()) {
+            if ($node_payload === $node->getPayload()) {
                 return true;
             }
         }

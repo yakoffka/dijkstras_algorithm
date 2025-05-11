@@ -1,10 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Unit\Graph;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Graph;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Yakoffka\DijkstrasAlgorithm\Tests\Unit\Graph\Traits\Graph64Trait;
 use Yakoffka\DijkstrasAlgorithm\Graph\Graph;
 use Yakoffka\DijkstrasAlgorithm\Graph\Walker;
 use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
@@ -14,6 +15,8 @@ use Yakoffka\DijkstrasAlgorithm\Tests\TestCase;
  */
 class GraphWalkDeptTest extends TestCase
 {
+    use Graph64Trait;
+
     /**
      * Проверка получения списка узлов в графе, содержащем несколько вершин и ребер
      *
@@ -90,6 +93,12 @@ class GraphWalkDeptTest extends TestCase
                 ],
                 'A',
                 ['A','D','F','G','E','C','B']
+            ],
+            [
+                iterator_to_array(self::get64graphNodes()),
+                iterator_to_array(self::get64graphEdges()),
+                'A0',
+                ['A0','B0','C0','D0','E0','F0','G0','H0','H1','H2','H3','H4','H5','H6','H7','G7','F7','F6','F5','F4','F3','F2','E2','D2','D3','D4','D5','D6','D7','C7','B7','B6','B5','B4','B3','B2','A2','A3','A4','A5','A6','A7','C6','C5','C4','C3','C2','E3','E4','E5','E6','E7','G6','G5','G4','G3','G2','G1','F1','E1','D1','C1','B1','A1',],
             ],
         ];
     }

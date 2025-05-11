@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Unit\Queues\SQueue;
+namespace Yakoffka\DijkstrasAlgorithm\Tests\Unit\Queues\SQueue;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

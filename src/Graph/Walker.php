@@ -6,6 +6,7 @@ namespace Yakoffka\DijkstrasAlgorithm\Graph;
 use RuntimeException;
 use Yakoffka\DijkstrasAlgorithm\Queues\SQueue;
 use Yakoffka\DijkstrasAlgorithm\Stack\Stack;
+use Yakoffka\DijkstrasAlgorithm\Tests\Unit\Graph\Traits\Graph64Trait;
 
 /**
  * Вспомогательный класс для обхода графа
@@ -59,9 +60,11 @@ class Walker
             $this->addToPath($current);
 
             foreach ($this->graph->getNeighboursNodes($current) as $neighbour) {
-                if (!$this->pathContain($neighbour) && !$stack->contain($neighbour)) {
+                if (!$this->pathContain($neighbour) && !$stack->contains($neighbour)) {
                     $stack->push($neighbour);
                 }
+
+                Graph64Trait::showWalk64graph($this->path, $stack);
             }
         }
     }
@@ -82,10 +85,12 @@ class Walker
         foreach ($queue->iterateDequeue() as $current) {
             $this->addToPath($current);
             foreach ($this->graph->getNeighboursNodes($current) as $neighbour) {
-                if (!$this->pathContain($neighbour) && !$queue->contain($neighbour)) {
+                if (!$this->pathContain($neighbour) && !$queue->contains($neighbour)) {
                     $queue->enqueue($neighbour);
                 }
             }
+
+            Graph64Trait::showWalk64graph($this->path, $queue);
         }
     }
 

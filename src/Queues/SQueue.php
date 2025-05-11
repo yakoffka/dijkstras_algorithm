@@ -3,14 +3,12 @@ declare(strict_types=1);
 
 namespace Yakoffka\DijkstrasAlgorithm\Queues;
 
-use Countable;
-use JsonSerializable;
 use Yakoffka\DijkstrasAlgorithm\Nodes\SingleNode;
 
 /**
  * Очередь на основе односвязного списка
  */
-class SQueue extends AbstractQueue implements JsonSerializable, Countable
+class SQueue extends AbstractQueue
 {
     protected ?SingleNode $first = null;
     protected ?SingleNode $last = null;
