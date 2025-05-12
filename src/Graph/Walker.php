@@ -25,7 +25,7 @@ class Walker
     }
 
     /**
-     * Добавление вершины в путь
+     * Добавление узла в пройденный путь
      *
      * @param string $node
      * @return void
@@ -44,9 +44,9 @@ class Walker
     }
 
     /**
-     * Обход всех вершин графа в глубину с использованием стека (Depth First Search)
+     * Обход всех узлов графа в глубину с использованием стека (Depth First Search)
      *
-     * @param string $node вершина начала обхода графа
+     * @param string $node узел начала обхода графа
      * @return void
      */
     public function walkDept(string $node): void
@@ -58,7 +58,7 @@ class Walker
         foreach ($stack->iteratePop() as $current) {
             $this->addToPath($current);
 
-            foreach ($this->graph->getNeighboursNodes($current) as $neighbour) {
+            foreach ($this->graph->getIncidentNodes($current) as $neighbour) {
                 if (!$this->pathContain($neighbour) && !$stack->contains($neighbour)) {
                     $stack->push($neighbour);
                 }
@@ -67,10 +67,9 @@ class Walker
     }
 
     /**
-     * Обход всех вершин графа в ширину с использованием очереди
-     * BFS, или Breadth First Search
+     * Обход всех узлов графа в ширину с использованием очереди (Breadth First Search)
      *
-     * @param string $node вершина начала обхода графа
+     * @param string $node узел начала обхода графа
      * @return void
      */
     public function walkBreadth(string $node): void
@@ -81,7 +80,7 @@ class Walker
 
         foreach ($queue->iterateDequeue() as $current) {
             $this->addToPath($current);
-            foreach ($this->graph->getNeighboursNodes($current) as $neighbour) {
+            foreach ($this->graph->getIncidentNodes($current) as $neighbour) {
                 if (!$this->pathContain($neighbour) && !$queue->contains($neighbour)) {
                     $queue->enqueue($neighbour);
                 }

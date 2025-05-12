@@ -14,8 +14,8 @@ use Yakoffka\DijkstrasAlgorithm\Interfaces\Sequencable;
 class Graph implements JsonSerializable, Countable, Sequencable
 {
     /**
-     * @var array Список смежности — один из способов представления графа в виде коллекции списков вершин.
-     * Каждой вершине графа соответствует список, состоящий из «соседей» этой вершины.
+     * @var array Список смежности — один из способов представления графа в виде коллекции списков узлов.
+     * Каждому узлу графа соответствует список, состоящий из «соседей» этого узла.
      */
     private array $adjacencyList = [];
 
@@ -41,7 +41,7 @@ class Graph implements JsonSerializable, Countable, Sequencable
     }
 
     /**
-     * Добавление вершины графа
+     * Добавление узла графа
      *
      * @param string $node
      * @return Graph
@@ -82,7 +82,7 @@ class Graph implements JsonSerializable, Countable, Sequencable
     }
 
     /**
-     * Получение матрицы смежности вершин графа
+     * Получение списка смежности графа
      *
      * @return array
      */
@@ -136,7 +136,7 @@ class Graph implements JsonSerializable, Countable, Sequencable
      * @param string $node
      * @return iterable
      */
-    public function getNeighboursNodes(string $node): iterable
+    public function getIncidentNodes(string $node): iterable
     {
         foreach ($this->adjacencyList[$node] as $node2 => $_weight) {
             yield $node2;
@@ -180,7 +180,7 @@ class Graph implements JsonSerializable, Countable, Sequencable
     }
 
     /**
-     * Валидация вершин добавляемого ребра: выброс исключения при отсутствии в матрице хотя-бы одной вершины
+     * Валидация узлов добавляемого ребра: выброс исключения при отсутствии в матрице хотя-бы одного узла
      *
      * @param string $node1
      * @param string $node2

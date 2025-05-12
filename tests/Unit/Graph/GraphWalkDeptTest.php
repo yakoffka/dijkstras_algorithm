@@ -18,11 +18,11 @@ class GraphWalkDeptTest extends TestCase
     use Graph64Trait;
 
     /**
-     * Проверка получения списка узлов в графе, содержащем несколько вершин и ребер
+     * Проверка получения списка узлов в графе, содержащем несколько узлов и ребер
      *
-     * @param array $nodes вершины графа
+     * @param array $nodes узлы графа
      * @param array $edges ребра графа
-     * @param string $start вершина начала обхода графа
+     * @param string $start узел начала обхода графа
      * @param array $expected_path ожидаемый путь обхода графа
      * @return void
      */
